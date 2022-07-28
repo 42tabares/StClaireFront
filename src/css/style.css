@@ -1,0 +1,8 @@
+#main-title-bar{
+    display: flexbox;
+}
+
+#main-title-logo{
+    height:100px;
+}
+
