@@ -1,8 +1,39 @@
+body{
+    margin: 0px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+#main-title-bar > div> img{
+    border-radius: 15px;
+}
+
 #main-title-bar{
-    display: flexbox;
+    padding: 0px 50px;
+    display: flex;
+    justify-content: space-between;
+    background-color: #192a56;
+    color: white;
 }
 
 #main-title-logo{
     height:100px;
 }
+
+#main-container{
+    padding: 0px 100px;
+}
+
+.title-element{
+    display: inline-block;
+    margin-right: 1rem;
+}
+
+.add-button{
+    border-radius: 5px;
+    background-color: lightgreen;
+    padding: 5px 10px;
+    margin-left: 1rem;
+    border: none; 
+}
+
 

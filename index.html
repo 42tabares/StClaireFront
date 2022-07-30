@@ -5,18 +5,39 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="src/css/style.css">
-    <script src="src/js/index.js" defer></script>
+    <script defer type="module" src="src/js/index.js" ></script>
     <title>St Claire Hospital</title>
 </head>
 <body>
-    <div id="main-title-bar">
-        <div id="main-title-text">
-            <h1>St Claire Hospital</h1>
-            <h3>Caring, Healing, Loving</h3>
+
+    <img src="src/images/hospital.jpg" alt="hospital">
+    <div id = "content">
+        <div id="main-title-bar">
+            <div id="main-title-text">
+                <h1>St Claire Hospital</h1>
+                <h3>Caring, Healing, Loving</h3>
+            </div>
+            <div>
+                <img src="src/images/depositphotos_115880892-stock-photo-circle-plus-sign-infographic-template.jpg" alt="logo">
+            </div>
         </div>
-        <div>
-            <img src="src/images/depositphotos_115880892-stock-photo-circle-plus-sign-infographic-template.jpg" alt="logo" id="main-title-logo">
+
+        <div id="main-container">
+            <p>  Add specialties: </p>
+            <form class="specialties-form">
+                <input class="text-input" placeholder="Specialty"              class="title-input"     type="text" required>
+                <input class="text-input" placeholder="Physician in Charge"    class="reminder-input"  type="text" required>
+                <button class="add-button" type="submit">+</button>
+            </form>
+            
+            <h2> Specialties: </h2>
+            <div class="specialties-container">
+
+            </div>
+
         </div>
     </div>
+
+
 </body>
 </html>
