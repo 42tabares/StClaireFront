@@ -1,27 +1,46 @@
 body{
     margin: 0px;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    position: relative;
+    color: white;
 }
 
-#main-title-bar > div> img{
+#background{
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    z-index: -10;
+}
+
+#logo{
     border-radius: 15px;
+    width: 100px;
 }
 
 #main-title-bar{
     padding: 0px 50px;
     display: flex;
     justify-content: space-between;
+    align-items: center;
     background-color: #192a56;
-    color: white;
 }
 
-#main-title-logo{
-    height:100px;
-}
 
 #main-container{
-    padding: 0px 100px;
+    padding: 30px;
+    background: rgba(0, 0, 0, 0.527);
+    width: 1200px;
+    margin: 0px auto;
+    height: 100%;
+    display: flex;
+    justify-content: space-around;
 }
+
+.specialties-container{
+    width: 500px;
+}
+
 
 .title-element{
     display: inline-block;
@@ -32,8 +51,29 @@ body{
     border-radius: 5px;
     background-color: lightgreen;
     padding: 5px 10px;
-    margin-left: 1rem;
     border: none; 
 }
 
+.delete-button{
+    border-radius: 5px;
+    background-color: lightcoral;
+    padding: 5px 10px;
+    border: none; 
+}
+
+.drop-menu{
+    padding: 5px 10px;
+    border-radius: 5px;
+    border: none;
+    margin-bottom: 1rem;
+    margin-left: 1rem;
+}
+
+.text-input{
+    border-radius: 3px;
+    padding: 5px;
+    border: 0px;
+    outline: none;
+    margin-right: 1rem;
+}
 

@@ -5,16 +5,25 @@ const specialtiesForm: HTMLFormElement |null =
 document.querySelector('.specialties-form');
 
 export interface specialtyInterface{
-    id:number|null,
+    specialtyID:number | null,
     name:string,
     physician:string,
 }
 
+export interface patientInterface{
+    patientID: number | null,
+    name:string,
+    age:number,
+}
+
+export interface appointmentInterface{
+    appointmentID: number | null,
+    date : string,
+}
+
 getAllSpecialties().then(specialties => {
-    state = specialties
     specialties.forEach(specialty => {
         buildSpecialty(specialty) 
     });
 })
 
-let state:specialtyInterface[] = []

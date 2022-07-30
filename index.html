@@ -10,7 +10,8 @@
 </head>
 <body>
 
-    <img src="src/images/hospital.jpg" alt="hospital">
+    <img id="background" src="src/images/hospital.jpg" alt="hospital">
+
     <div id = "content">
         <div id="main-title-bar">
             <div id="main-title-text">
@@ -18,20 +19,42 @@
                 <h3>Caring, Healing, Loving</h3>
             </div>
             <div>
-                <img src="src/images/depositphotos_115880892-stock-photo-circle-plus-sign-infographic-template.jpg" alt="logo">
+                <img id="logo" src="src/images/depositphotos_115880892-stock-photo-circle-plus-sign-infographic-template.jpg" alt="logo">
             </div>
         </div>
 
         <div id="main-container">
-            <p>  Add specialties: </p>
-            <form class="specialties-form">
-                <input class="text-input" placeholder="Specialty"              class="title-input"     type="text" required>
-                <input class="text-input" placeholder="Physician in Charge"    class="reminder-input"  type="text" required>
-                <button class="add-button" type="submit">+</button>
-            </form>
-            
-            <h2> Specialties: </h2>
+
+            <div class = "forms-container">
+                <div id = "specialties-form">
+                    <h3>  Add specialties: </h3>
+                    <form>
+                        <input class="text-input" placeholder="Specialty"            type="text" required>
+                        <input class="text-input" placeholder="Physician in Charge"  type="text" required>
+                        <button class="add-button" type="submit">+</button>
+                    </form>
+                </div>
+
+                <div class = "patients-form">
+                    <h3>  Add patients: </h3>
+                    <form>
+                        
+                        <label for="specialties: ">Specialty:</label>
+                        <select name="specialties" class="drop-menu" id="specialties-options" required>
+                            
+                        </select>
+
+                        <br>
+
+                        <input class="text-input" placeholder="Patient Name"   type="text" required>
+                        <input class="text-input" placeholder="Patient's Age" type="text" required>
+                        <button class="add-button" type="submit">+</button>
+                    </form>
+                </div>
+            </div>
+
             <div class="specialties-container">
+                <h2> Specialties: </h2>
 
             </div>
 

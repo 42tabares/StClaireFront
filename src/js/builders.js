@@ -1,39 +1,75 @@
+import { deleteSpecialty } from "./requests/requests.js";
 export function buildSpecialty(specialty) {
     const specialties = document.querySelector('.specialties-container');
-    //const create = (name:string) => {return document.createElement(name)}
+    const specialtiesOptions = document.getElementById('specialties-options');
     //Specialty Info
     const specialtyMainDiv = document.createElement('div');
     specialtyMainDiv.className = 'single-specialty-container';
-    specialtyMainDiv.id = `specialty-${specialty.id}`;
+    specialtyMainDiv.id = `specialty-${specialty.specialtyID}`;
     const specialtyTitle = document.createElement('h4');
     specialtyTitle.className = "title-element";
     specialtyTitle.innerText = `${specialty.name}`;
     const specialtyPhysician = document.createElement('p');
     specialtyPhysician.className = "title-element";
     specialtyPhysician.innerText = `Physician in Charge: ${specialty.physician}`;
-    //Add Patient Input/Form
-    const addPatientForm = document.createElement('form');
-    const patientNameInput = document.createElement('input');
-    patientNameInput.className = "text-input";
-    patientNameInput.placeholder = "Patient's Name";
-    patientNameInput.required = true;
-    const patientAgeInput = document.createElement('input');
-    patientAgeInput.className = "text-input";
-    patientAgeInput.placeholder = "Patient's Age";
-    patientAgeInput.required = true;
-    const patientSpecialtyIDInput = document.createElement('input');
-    patientSpecialtyIDInput.type = "hidden";
-    patientAgeInput.value = `${specialty.id}`;
-    const addButton = document.createElement("button");
-    addButton.className = "add-button";
-    addButton.type = "submit";
-    addButton.textContent = "+";
-    addPatientForm.append(patientNameInput, patientAgeInput, patientSpecialtyIDInput, addButton);
+    const deleteButton = document.createElement("button");
+    deleteButton.className = "delete-button";
+    deleteButton.type = "submit";
+    deleteButton.textContent = "Delete Specialty";
+    deleteButton.addEventListener("click", () => deleteSpecialty(specialty.specialtyID));
     //Patients of Specialty Div
     const patientsDiv = document.createElement('div');
-    patientsDiv.className = `specialty-patients-${specialty.id}`;
-    patientsDiv.id = "specialty-patients-container";
+    patientsDiv.id = `specialty-patients-${specialty.specialtyID}`;
+    patientsDiv.className = "specialty-patients-container";
     //Specialty Main Div Organizing
-    specialtyMainDiv.append(specialtyTitle, specialtyPhysician, addPatientForm, patientsDiv);
+    specialtyMainDiv.append(specialtyTitle, specialtyPhysician, deleteButton, patientsDiv);
+    //Adding option to create Patient form
+    const newOption = document.createElement('option');
+    newOption.value = `${specialty.specialtyID}`;
+    newOption.textContent = `${specialty.name}`;
+    specialtiesOptions.append(newOption);
     specialties.append(specialtyMainDiv);
 }
+/*
+async function buildPatientsofSpecialty(specialtyID:number){
+    getSpecialtyPatients(specialtyID).then(patients => {
+        patients.forEach(patient => {
+            buildPatient(specialtyID , patient)
+        });
+    })
+}
+
+
+
+
+
+
+function buildPatient(specialtyID : number , patient : patientInterface){
+
+    const patients = document.getElementById(`specialty-patients-${specialtyID}`)
+
+    //Specialty Info
+    const patientMainDiv:HTMLDivElement = document.createElement('div');
+    patientMainDiv.className = 'single-specialty-container'
+    patientMainDiv.id = `specialty-${specialty.specialtyID}`
+    
+    const patientName:HTMLHeadElement = document.createElement('h4');
+    patientName.className = "title-element"
+    patientName.innerText = `${specialty.name}`
+
+    const patientAge:HTMLParagraphElement = document.createElement('p');
+    patientAge.className = "title-element"
+    patientAge.innerText = `Physician in Charge: ${specialty.physician}`
+
+    const deleteButton:HTMLButtonElement = document.createElement("button");
+    deleteButton.className = "delete-button"
+    deleteButton.type="submit"
+    deleteButton.textContent = "Delete Specialty"
+    deleteButton.addEventListener("click", () => deleteSpecialty(specialty.specialtyID))
+
+    
+
+
+}
+
+*/ 

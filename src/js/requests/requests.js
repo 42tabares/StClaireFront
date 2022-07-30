@@ -11,6 +11,25 @@ export function getAllSpecialties() {
     return __awaiter(this, void 0, void 0, function* () {
         const response = yield fetch('http://localhost:8081/api/get/specialties');
         const data = yield response.json();
+        console.log(data);
         return data;
+    });
+}
+export function getSpecialtyPatients(specialtyID) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const response = yield fetch('http://localhost:8081/api/get/specialties' + specialtyID.toString());
+        const data = yield response.json();
+        return data;
+    });
+}
+export function deleteSpecialty(specialtyID) {
+    return __awaiter(this, void 0, void 0, function* () {
+        if (specialtyID != null) {
+            const response = yield fetch('http://localhost:8081/api/delete/specialty/' + specialtyID.toString(), {
+                method: 'DELETE'
+            });
+            window.location.reload();
+            return response;
+        }
     });
 }
