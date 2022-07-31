@@ -1,5 +1,5 @@
 import { patientInterface, specialtyInterface } from "./index.js";
-import { deleteSpecialty } from "./requests/requests.js";
+import { deletePatient, deleteSpecialty } from "./requests/requests.js";
 
 export function buildSpecialty(specialty : specialtyInterface){
     
@@ -11,7 +11,7 @@ export function buildSpecialty(specialty : specialtyInterface){
     specialtyMainDiv.className = 'single-specialty-container'
     specialtyMainDiv.id = `specialty-${specialty.specialtyID}`
     
-    const specialtyTitle:HTMLHeadElement = document.createElement('h4');
+    const specialtyTitle:HTMLHeadElement = document.createElement('h2');
     specialtyTitle.className = "title-element"
     specialtyTitle.innerText = `${specialty.name}`
 
@@ -19,11 +19,16 @@ export function buildSpecialty(specialty : specialtyInterface){
     specialtyPhysician.className = "title-element"
     specialtyPhysician.innerText = `Physician in Charge: ${specialty.physician}`
 
+    //Delete Button
     const deleteButton:HTMLButtonElement = document.createElement("button");
     deleteButton.className = "delete-button"
     deleteButton.type="submit"
     deleteButton.textContent = "Delete Specialty"
     deleteButton.addEventListener("click", () => deleteSpecialty(specialty.specialtyID))
+
+    const patientsTitle:HTMLHeadElement = document.createElement('h4');
+    patientsTitle.className = "subtitle-element"
+    patientsTitle.innerText = `${specialty.name} Patients:`
 
     //Patients of Specialty Div
     const patientsDiv:HTMLDivElement = document.createElement('div')
@@ -31,7 +36,7 @@ export function buildSpecialty(specialty : specialtyInterface){
     patientsDiv.className = "specialty-patients-container"
 
     //Specialty Main Div Organizing
-    specialtyMainDiv.append(specialtyTitle,specialtyPhysician,deleteButton,patientsDiv)
+    specialtyMainDiv.append(specialtyTitle,specialtyPhysician,deleteButton,patientsTitle,patientsDiv)
 
     //Adding option to create Patient form
     const newOption:HTMLOptionElement = document.createElement('option')
@@ -40,49 +45,47 @@ export function buildSpecialty(specialty : specialtyInterface){
 
     specialtiesOptions.append(newOption)
     specialties.append(specialtyMainDiv)
+
+    //Patients of Specialty Appending after Creation
+    specialty.patients.forEach(patient => buildPatient(patient))
 }
 
 
-/*
-async function buildPatientsofSpecialty(specialtyID:number){
-    getSpecialtyPatients(specialtyID).then(patients => {
-        patients.forEach(patient => {
-            buildPatient(specialtyID , patient) 
-        });
-    })
-}
+function buildPatient(patient : patientInterface){
 
+    console.log("builtpatient")
+    console.log(patient.fkSpecialtyID)
 
+    const patientsDiv = document.getElementById(`specialty-patients-${patient.fkSpecialtyID}`)
 
+    console.log(patientsDiv)
 
-
-
-function buildPatient(specialtyID : number , patient : patientInterface){
-
-    const patients = document.getElementById(`specialty-patients-${specialtyID}`)
-
-    //Specialty Info
+    //Patient Info
     const patientMainDiv:HTMLDivElement = document.createElement('div');
-    patientMainDiv.className = 'single-specialty-container'
-    patientMainDiv.id = `specialty-${specialty.specialtyID}`
+    patientMainDiv.className = 'single-patient-container'
+    patientMainDiv.id = `specialty-${patient.patientID}`
     
-    const patientName:HTMLHeadElement = document.createElement('h4');
+    const patientName:HTMLHeadElement = document.createElement('h3');
     patientName.className = "title-element"
-    patientName.innerText = `${specialty.name}`
+    patientName.innerText = `${patient.name}`
 
     const patientAge:HTMLParagraphElement = document.createElement('p');
     patientAge.className = "title-element"
-    patientAge.innerText = `Physician in Charge: ${specialty.physician}`
+    patientAge.innerText = `Patient's Age: ${patient.age}`
 
+    const patientNofAppointments:HTMLParagraphElement = document.createElement('p');
+    patientNofAppointments.className = "subtitle-element"
+    patientNofAppointments.innerText = `Number of Appointments: ${patient.numberOfAppointments}`
+
+    //Delete button
     const deleteButton:HTMLButtonElement = document.createElement("button");
     deleteButton.className = "delete-button"
     deleteButton.type="submit"
-    deleteButton.textContent = "Delete Specialty"
-    deleteButton.addEventListener("click", () => deleteSpecialty(specialty.specialtyID))
+    deleteButton.textContent = "Delete Patient"
+    deleteButton.addEventListener("click", () => deletePatient(patient.patientID))
 
-    
+    //Display User's Appointment Button... TODO!
 
-
+    patientMainDiv.append(patientName,patientAge,patientNofAppointments,deleteButton)
+    patientsDiv?.append(patientMainDiv)
 }
-
-*/

@@ -1,4 +1,4 @@
-import { deleteSpecialty } from "./requests/requests.js";
+import { deletePatient, deleteSpecialty } from "./requests/requests.js";
 export function buildSpecialty(specialty) {
     const specialties = document.querySelector('.specialties-container');
     const specialtiesOptions = document.getElementById('specialties-options');
@@ -6,70 +6,61 @@ export function buildSpecialty(specialty) {
     const specialtyMainDiv = document.createElement('div');
     specialtyMainDiv.className = 'single-specialty-container';
     specialtyMainDiv.id = `specialty-${specialty.specialtyID}`;
-    const specialtyTitle = document.createElement('h4');
+    const specialtyTitle = document.createElement('h2');
     specialtyTitle.className = "title-element";
     specialtyTitle.innerText = `${specialty.name}`;
     const specialtyPhysician = document.createElement('p');
     specialtyPhysician.className = "title-element";
     specialtyPhysician.innerText = `Physician in Charge: ${specialty.physician}`;
+    //Delete Button
     const deleteButton = document.createElement("button");
     deleteButton.className = "delete-button";
     deleteButton.type = "submit";
     deleteButton.textContent = "Delete Specialty";
     deleteButton.addEventListener("click", () => deleteSpecialty(specialty.specialtyID));
+    const patientsTitle = document.createElement('h4');
+    patientsTitle.className = "subtitle-element";
+    patientsTitle.innerText = `${specialty.name} Patients:`;
     //Patients of Specialty Div
     const patientsDiv = document.createElement('div');
     patientsDiv.id = `specialty-patients-${specialty.specialtyID}`;
     patientsDiv.className = "specialty-patients-container";
     //Specialty Main Div Organizing
-    specialtyMainDiv.append(specialtyTitle, specialtyPhysician, deleteButton, patientsDiv);
+    specialtyMainDiv.append(specialtyTitle, specialtyPhysician, deleteButton, patientsTitle, patientsDiv);
     //Adding option to create Patient form
     const newOption = document.createElement('option');
     newOption.value = `${specialty.specialtyID}`;
     newOption.textContent = `${specialty.name}`;
     specialtiesOptions.append(newOption);
     specialties.append(specialtyMainDiv);
+    //Patients of Specialty Appending after Creation
+    specialty.patients.forEach(patient => buildPatient(patient));
 }
-/*
-async function buildPatientsofSpecialty(specialtyID:number){
-    getSpecialtyPatients(specialtyID).then(patients => {
-        patients.forEach(patient => {
-            buildPatient(specialtyID , patient)
-        });
-    })
+function buildPatient(patient) {
+    console.log("builtpatient");
+    console.log(patient.fkSpecialtyID);
+    const patientsDiv = document.getElementById(`specialty-patients-${patient.fkSpecialtyID}`);
+    console.log(patientsDiv);
+    //Patient Info
+    const patientMainDiv = document.createElement('div');
+    patientMainDiv.className = 'single-patient-container';
+    patientMainDiv.id = `specialty-${patient.patientID}`;
+    const patientName = document.createElement('h3');
+    patientName.className = "title-element";
+    patientName.innerText = `${patient.name}`;
+    const patientAge = document.createElement('p');
+    patientAge.className = "title-element";
+    patientAge.innerText = `Patient's Age: ${patient.age}`;
+    const patientNofAppointments = document.createElement('p');
+    patientNofAppointments.className = "subtitle-element";
+    patientNofAppointments.innerText = `Number of Appointments: ${patient.numberOfAppointments}`;
+    //Delete button
+    const deleteButton = document.createElement("button");
+    deleteButton.className = "delete-button";
+    deleteButton.type = "submit";
+    deleteButton.textContent = "Delete Patient";
+    deleteButton.addEventListener("click", () => deletePatient(patient.patientID));
+    //Display User's Appointment Button... TODO!
+    patientMainDiv.append(patientName, patientAge, patientNofAppointments, deleteButton);
+    patientsDiv === null || patientsDiv === void 0 ? void 0 : patientsDiv.append(patientMainDiv);
 }
-
-
-
-
-
-
-function buildPatient(specialtyID : number , patient : patientInterface){
-
-    const patients = document.getElementById(`specialty-patients-${specialtyID}`)
-
-    //Specialty Info
-    const patientMainDiv:HTMLDivElement = document.createElement('div');
-    patientMainDiv.className = 'single-specialty-container'
-    patientMainDiv.id = `specialty-${specialty.specialtyID}`
-    
-    const patientName:HTMLHeadElement = document.createElement('h4');
-    patientName.className = "title-element"
-    patientName.innerText = `${specialty.name}`
-
-    const patientAge:HTMLParagraphElement = document.createElement('p');
-    patientAge.className = "title-element"
-    patientAge.innerText = `Physician in Charge: ${specialty.physician}`
-
-    const deleteButton:HTMLButtonElement = document.createElement("button");
-    deleteButton.className = "delete-button"
-    deleteButton.type="submit"
-    deleteButton.textContent = "Delete Specialty"
-    deleteButton.addEventListener("click", () => deleteSpecialty(specialty.specialtyID))
-
-    
-
-
-}
-
-*/ 

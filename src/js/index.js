@@ -2,6 +2,7 @@ import { buildSpecialty } from "./builders.js";
 import { createSpecialty, getAllSpecialties } from "./requests/requests.js";
 getAllSpecialties().then(specialties => {
     specialties.forEach(specialty => {
+        console.log(specialty);
         buildSpecialty(specialty);
     });
 });
@@ -17,7 +18,8 @@ function handleSpecialtySubmit(e) {
             const newSpecialty = {
                 specialtyID: null,
                 name: inputName,
-                physician: inputPhysician
+                physician: inputPhysician,
+                patients: []
             };
             createSpecialty(newSpecialty).then(response => {
                 if (response.ok) {

@@ -2,7 +2,6 @@ import { specialtyInterface } from "../index.js"
 
 export async function getAllSpecialties() {
     const response:Response = await fetch('http://localhost:8081/api/get/specialties')
-  
     const data:specialtyInterface[] = await response.json()
     return data
 }
@@ -32,14 +31,34 @@ export async function getSpecialtyPatients(specialtyID:number) {
 }
 */
 
+
+//This is such a bad practice... i could collapse these three functions into one...
 export async function deleteSpecialty(specialtyID:number | null) {
-    if (specialtyID != null){
-        const response:Response = await fetch('http://localhost:8081/api/delete/specialty/' + specialtyID.toString(),
-        {
-            method: 'DELETE'
-        })
-        if (response.ok){
-            window.location.reload()
-        } 
-    }
-} 
+    const response:Response = await fetch('http://localhost:8081/api/delete/specialty/' + specialtyID?.toString(),
+    {
+        method: 'DELETE'
+    })
+    if (response.ok){
+         window.location.reload()
+    } 
+}
+
+export async function deletePatient(patientID:number | null) {
+    const response:Response = await fetch('http://localhost:8081/api/delete/patient/' + patientID?.toString(),
+    {
+        method: 'DELETE'
+    })
+    if (response.ok){
+        window.location.reload()
+    } 
+}
+
+export async function deleteAppointment(patientID:number | null) {
+    const response:Response = await fetch('http://localhost:8081/api/delete/appointment/' + patientID?.toString(),
+    {
+        method: 'DELETE'
+    })
+    if (response.ok){
+        window.location.reload()
+    } 
+}

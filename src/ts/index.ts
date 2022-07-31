@@ -5,10 +5,13 @@ export interface specialtyInterface{
     specialtyID:number | null,
     name:string,
     physician:string,
+    patients:Array<patientInterface>,
 }
 
 export interface patientInterface{
     patientID: number | null,
+    fkSpecialtyID: number,
+    numberOfAppointments: number,
     name:string,
     age:number,
 }
@@ -20,6 +23,7 @@ export interface appointmentInterface{
 
 getAllSpecialties().then(specialties => {
     specialties.forEach(specialty => {
+        console.log(specialty)
         buildSpecialty(specialty) 
     });
 })
@@ -43,7 +47,8 @@ function handleSpecialtySubmit(e : SubmitEvent){
             const newSpecialty: specialtyInterface = {
               specialtyID: null,
               name: inputName,
-              physician: inputPhysician
+              physician: inputPhysician,
+              patients: []
             }
 
             createSpecialty(newSpecialty).then(
@@ -60,5 +65,6 @@ function handleSpecialtySubmit(e : SubmitEvent){
         alert("Specialty's name must be between 5 and 100 characters long!")
     }
 }
+
 
 

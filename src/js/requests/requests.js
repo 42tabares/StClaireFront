@@ -35,15 +35,34 @@ export async function getSpecialtyPatients(specialtyID:number) {
     return data
 }
 */
+//This is such a bad practice... i could collapse these three functions into one...
 export function deleteSpecialty(specialtyID) {
     return __awaiter(this, void 0, void 0, function* () {
-        if (specialtyID != null) {
-            const response = yield fetch('http://localhost:8081/api/delete/specialty/' + specialtyID.toString(), {
-                method: 'DELETE'
-            });
-            if (response.ok) {
-                window.location.reload();
-            }
+        const response = yield fetch('http://localhost:8081/api/delete/specialty/' + (specialtyID === null || specialtyID === void 0 ? void 0 : specialtyID.toString()), {
+            method: 'DELETE'
+        });
+        if (response.ok) {
+            window.location.reload();
+        }
+    });
+}
+export function deletePatient(patientID) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const response = yield fetch('http://localhost:8081/api/delete/patient/' + (patientID === null || patientID === void 0 ? void 0 : patientID.toString()), {
+            method: 'DELETE'
+        });
+        if (response.ok) {
+            window.location.reload();
+        }
+    });
+}
+export function deleteAppointment(patientID) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const response = yield fetch('http://localhost:8081/api/delete/appointment/' + (patientID === null || patientID === void 0 ? void 0 : patientID.toString()), {
+            method: 'DELETE'
+        });
+        if (response.ok) {
+            window.location.reload();
         }
     });
 }
