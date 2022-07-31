@@ -1,5 +1,5 @@
 import { patientInterface, specialtyInterface } from "./index.js";
-import { deleteSpecialty, getSpecialtyPatients} from "./requests/requests.js";
+import { deleteSpecialty } from "./requests/requests.js";
 
 export function buildSpecialty(specialty : specialtyInterface){
     

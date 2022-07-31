@@ -11,25 +11,39 @@ export function getAllSpecialties() {
     return __awaiter(this, void 0, void 0, function* () {
         const response = yield fetch('http://localhost:8081/api/get/specialties');
         const data = yield response.json();
-        console.log(data);
         return data;
     });
 }
-export function getSpecialtyPatients(specialtyID) {
+export function createSpecialty(specialty) {
     return __awaiter(this, void 0, void 0, function* () {
-        const response = yield fetch('http://localhost:8081/api/get/specialties' + specialtyID.toString());
-        const data = yield response.json();
-        return data;
+        const response = yield fetch('http://localhost:8081/api/create/specialty', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(specialty)
+        });
+        return response;
     });
 }
+/*
+export async function getSpecialtyPatients(specialtyID:number) {
+    const response:Response = await fetch('http://localhost:8081/api/get/specialties' + specialtyID.toString())
+  
+    const data:specialtyInterface[] = await response.json()
+
+    return data
+}
+*/
 export function deleteSpecialty(specialtyID) {
     return __awaiter(this, void 0, void 0, function* () {
         if (specialtyID != null) {
             const response = yield fetch('http://localhost:8081/api/delete/specialty/' + specialtyID.toString(), {
                 method: 'DELETE'
             });
-            window.location.reload();
-            return response;
+            if (response.ok) {
+                window.location.reload();
+            }
         }
     });
 }
