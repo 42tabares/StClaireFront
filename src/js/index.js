@@ -1,8 +1,7 @@
 import { buildSpecialty } from "./builders.js";
-import { createPatient, createSpecialty, getAllSpecialties } from "./requests/requests.js";
+import { createAppointment, createPatient, createSpecialty, getAllSpecialties } from "./requests/requests.js";
 getAllSpecialties().then(specialties => {
     specialties.forEach(specialty => {
-        console.log(specialty);
         buildSpecialty(specialty);
     });
 });
@@ -10,6 +9,8 @@ const specialtiesForm = document.querySelector('.specialties-form');
 specialtiesForm === null || specialtiesForm === void 0 ? void 0 : specialtiesForm.addEventListener('submit', (e) => handleSpecialtySubmit(e));
 const patientsForm = document.querySelector('.patients-form');
 patientsForm === null || patientsForm === void 0 ? void 0 : patientsForm.addEventListener('submit', (e) => handlePatientSubmit(e));
+const appointmentsForm = document.querySelector('.appointments-form');
+appointmentsForm === null || appointmentsForm === void 0 ? void 0 : appointmentsForm.addEventListener('submit', (e) => handleAppointmentSubmit(e));
 function handleSpecialtySubmit(e) {
     e.preventDefault();
     const inputName = document.getElementById("specialty-name-input").value;
@@ -67,4 +68,17 @@ function handlePatientSubmit(e) {
     }
 }
 function handleAppointmentSubmit(e) {
+    e.preventDefault();
+    const inputDate = document.getElementById("appointment-date-input").value;
+    const inputPatientID = document.getElementById("appointment-patientid-input").value;
+    const newAppointment = {
+        appointmentID: null,
+        fkPatientID: parseInt(inputPatientID),
+        date: inputDate
+    };
+    createAppointment(newAppointment).then(response => {
+        if (response.ok) {
+            window.location.reload();
+        }
+    });
 }

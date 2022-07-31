@@ -1,5 +1,5 @@
 import { buildSpecialty } from "./builders.js";
-import { createPatient, createSpecialty, getAllSpecialties } from "./requests/requests.js";
+import { createAppointment, createPatient, createSpecialty, getAllSpecialties } from "./requests/requests.js";
 
 export interface specialtyInterface{
     specialtyID:number | null,
@@ -25,7 +25,6 @@ export interface appointmentInterface{
 
 getAllSpecialties().then(specialties => {
     specialties.forEach(specialty => {
-        console.log(specialty)
         buildSpecialty(specialty) 
     });
 })
@@ -35,6 +34,9 @@ specialtiesForm?.addEventListener('submit', (e) => handleSpecialtySubmit(e))
 
 const patientsForm: HTMLFormElement |null = document.querySelector('.patients-form');
 patientsForm?.addEventListener('submit', (e) => handlePatientSubmit(e))
+
+const appointmentsForm: HTMLFormElement |null = document.querySelector('.appointments-form');
+appointmentsForm?.addEventListener('submit', (e) => handleAppointmentSubmit(e))
 
 
 function handleSpecialtySubmit(e : SubmitEvent){
@@ -104,5 +106,21 @@ function handlePatientSubmit(e : SubmitEvent){
 }
 
 function handleAppointmentSubmit(e: SubmitEvent){
+    e.preventDefault();
 
+    const inputDate = (document.getElementById("appointment-date-input") as HTMLInputElement).value
+    const inputPatientID = (document.getElementById("appointment-patientid-input") as HTMLInputElement).value
+
+    const newAppointment: appointmentInterface = {
+        appointmentID : null,
+        fkPatientID: parseInt(inputPatientID),
+        date : inputDate
+      }
+
+      createAppointment(newAppointment).then(
+          response => {
+            if(response.ok){
+              window.location.reload()
+          }
+      })
 }

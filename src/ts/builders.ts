@@ -99,10 +99,12 @@ function appointmentsInfoDisplay(patient:patientInterface){
     const editor = document.querySelector(".appointments-editor") as HTMLElement
     const specialtyTitle = document.getElementById(`specialty-${patient.fkSpecialtyID}`) as HTMLElement
     const specialtyName = specialtyTitle.textContent
+    const patientIDInput = document.getElementById("appointment-patientid-input") as HTMLInputElement
     const patientInfo = document.getElementById("appointments-patientinfo") as HTMLElement
     const appointmentsList = document.getElementById("appointments-list") as HTMLElement
 
     patientInfo.innerText = `${specialtyName} ➡️ ${patient.name} `
+    patientIDInput.value = `${patient.patientID}`
     appointmentsList.innerHTML = ""
     editor.style.display = "flex"
 

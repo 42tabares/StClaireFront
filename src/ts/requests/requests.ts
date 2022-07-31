@@ -1,4 +1,4 @@
-import { patientInterface, specialtyInterface } from "../index.js"
+import { appointmentInterface, patientInterface, specialtyInterface } from "../index.js"
 
 export async function getAllSpecialties() {
     const response:Response = await fetch('http://localhost:8081/api/get/specialties')
@@ -33,16 +33,18 @@ export async function createPatient(patient:patientInterface) {
   return response;
 }
 
+export async function createAppointment(appointment:appointmentInterface) {
+    const response:Response = await fetch('http://localhost:8081/api/create/appointment', 
+  {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json' 
+    },
+    body: JSON.stringify(appointment)
+  })
 
-/*
-export async function getSpecialtyPatients(specialtyID:number) {
-    const response:Response = await fetch('http://localhost:8081/api/get/specialties' + specialtyID.toString())
-  
-    const data:specialtyInterface[] = await response.json()
-
-    return data
+  return response;
 }
-*/
 
 
 //This is such a bad practice... i could collapse these three functions into one...

@@ -38,15 +38,18 @@ export function createPatient(patient) {
         return response;
     });
 }
-/*
-export async function getSpecialtyPatients(specialtyID:number) {
-    const response:Response = await fetch('http://localhost:8081/api/get/specialties' + specialtyID.toString())
-  
-    const data:specialtyInterface[] = await response.json()
-
-    return data
+export function createAppointment(appointment) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const response = yield fetch('http://localhost:8081/api/create/appointment', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(appointment)
+        });
+        return response;
+    });
 }
-*/
 //This is such a bad practice... i could collapse these three functions into one...
 export function deleteSpecialty(specialtyID) {
     return __awaiter(this, void 0, void 0, function* () {

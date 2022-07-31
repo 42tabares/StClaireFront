@@ -75,9 +75,11 @@ function appointmentsInfoDisplay(patient) {
     const editor = document.querySelector(".appointments-editor");
     const specialtyTitle = document.getElementById(`specialty-${patient.fkSpecialtyID}`);
     const specialtyName = specialtyTitle.textContent;
+    const patientIDInput = document.getElementById("appointment-patientid-input");
     const patientInfo = document.getElementById("appointments-patientinfo");
     const appointmentsList = document.getElementById("appointments-list");
     patientInfo.innerText = `${specialtyName} ➡️ ${patient.name} `;
+    patientIDInput.value = `${patient.patientID}`;
     appointmentsList.innerHTML = "";
     editor.style.display = "flex";
     if (patient.numberOfAppointments == 0) {
