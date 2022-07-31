@@ -26,17 +26,18 @@
         <div id="main-container">
 
             <div class = "forms-container">
-                <div>
-                    <h3>  Add specialties: </h3>
+                <h2>Control Panel</h2>
+                <div class = editor>
+                    <h3 class="title-element">  Add specialties </h3>
                     <form class="specialties-form">
                         <input class="text-input" id="specialty-name-input" placeholder="Specialty"            type="text" required>
                         <input class="text-input" id="specialty-physician-input" placeholder="Physician in Charge"  type="text" required>
-                        <button class="add-button" type="submit">+</button>
+                        <button class="add-button" type="submit">Add</button>
                     </form>
                 </div>
 
-                <div>
-                    <h3>  Add patients: </h3>
+                <div class = editor>
+                    <h3 class="title-element">  Add patients </h3>
                     <form class="patients-form">
                         
                         <label for="specialties: ">Specialty:</label>
@@ -48,11 +49,24 @@
 
                         <input class="text-input" id="patient-name-input"      placeholder="Patient Name"   type="text" required>
                         <input class="text-input" id="patient-age-input"       placeholder="Patient's Age" type="text" required>
-                        <button class="add-button" type="submit">+</button>
+                        <button class="add-button" type="submit">Add</button>
                     </form>
                 </div>
 
-                <div class = "appointments-editor">
+                <div class = "editor" id="specialty-editor">
+                    <h3 class="title-element" id="editor-specialty-info"> Info Specialty Placeholder </h3>
+                    <h5 id="manager-text"> Asign new values: </h5>
+
+                    <form class="specialties-update-form">
+                        <input hidden id="specialtyID-input-editor" type="number">
+                        <input class="text-input" id="specialty-name-input-editor" placeholder="Specialty" type="text" required>
+                        <input class="text-input" id="specialty-physician-input-editor" placeholder="Physician in Charge"  type="text" required>
+                        <button class="edit-button" type="submit">Edit</button>
+                    </form>
+
+                </div>
+
+                <div class = "editor" id="appointments-editor">
                     <h3 class="title-element" id="appointments-patientinfo"> Info Patient Placeholder </h3>
                     <h5 id="manager-text"> appointment manager </h5>
 
@@ -68,18 +82,17 @@
                             <input class="date-input" id="appointment-date-input" type="date" required>
                             <button class="add-button" type="submit">Add Appointment</button>
                         </form>
-                    </div>
+                    </div>    
                 </div>
+
             </div>
 
             <div class="specialties-container">
-                <h2> Specialties: </h2>
-
+                <h2> Specialties and Users </h2>
             </div>
 
         </div>
     </div>
-
 
 </body>
 </html>

@@ -50,6 +50,19 @@ export function createAppointment(appointment) {
         return response;
     });
 }
+export function updateSpecialty(specialty) {
+    return __awaiter(this, void 0, void 0, function* () {
+        console.log(specialty);
+        const response = yield fetch('http://localhost:8081/api/update/specialty', {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(specialty)
+        });
+        return response;
+    });
+}
 //This is such a bad practice... i could collapse these three functions into one...
 export function deleteSpecialty(specialtyID) {
     return __awaiter(this, void 0, void 0, function* () {

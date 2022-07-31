@@ -46,6 +46,20 @@ export async function createAppointment(appointment:appointmentInterface) {
   return response;
 }
 
+export async function updateSpecialty(specialty:specialtyInterface) {
+    console.log(specialty)
+    const response:Response = await fetch('http://localhost:8081/api/update/specialty', 
+  {
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json' 
+    },
+    body: JSON.stringify(specialty)
+  })
+
+  return response;
+}
+
 
 //This is such a bad practice... i could collapse these three functions into one...
 export async function deleteSpecialty(specialtyID:number | null) {

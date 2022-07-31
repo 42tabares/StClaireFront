@@ -1,5 +1,5 @@
 import { buildSpecialty } from "./builders.js";
-import { createAppointment, createPatient, createSpecialty, getAllSpecialties } from "./requests/requests.js";
+import { createAppointment, createPatient, createSpecialty, getAllSpecialties, updateSpecialty } from "./requests/requests.js";
 getAllSpecialties().then(specialties => {
     specialties.forEach(specialty => {
         buildSpecialty(specialty);
@@ -11,6 +11,8 @@ const patientsForm = document.querySelector('.patients-form');
 patientsForm === null || patientsForm === void 0 ? void 0 : patientsForm.addEventListener('submit', (e) => handlePatientSubmit(e));
 const appointmentsForm = document.querySelector('.appointments-form');
 appointmentsForm === null || appointmentsForm === void 0 ? void 0 : appointmentsForm.addEventListener('submit', (e) => handleAppointmentSubmit(e));
+const updateSpecialtyForm = document.querySelector('.specialties-update-form');
+updateSpecialtyForm === null || updateSpecialtyForm === void 0 ? void 0 : updateSpecialtyForm.addEventListener('submit', (e) => handleSpecialtyUpdate(e));
 function handleSpecialtySubmit(e) {
     e.preventDefault();
     const inputName = document.getElementById("specialty-name-input").value;
@@ -81,4 +83,31 @@ function handleAppointmentSubmit(e) {
             window.location.reload();
         }
     });
+}
+function handleSpecialtyUpdate(e) {
+    e.preventDefault();
+    const specialtyIDInput = document.getElementById("specialtyID-input-editor").value;
+    const inputName = document.getElementById("specialty-name-input-editor").value;
+    const inputPhysician = document.getElementById("specialty-physician-input-editor").value;
+    if ((inputName.length >= 5 && inputName.length <= 100)) {
+        if ((inputPhysician.length >= 10 && inputPhysician.length <= 40)) {
+            const toUpdateSpecialty = {
+                specialtyID: parseInt(specialtyIDInput),
+                name: inputName,
+                physician: inputPhysician,
+                patients: []
+            };
+            updateSpecialty(toUpdateSpecialty).then(response => {
+                if (response.ok) {
+                    window.location.reload();
+                }
+            });
+        }
+        else {
+            alert("Physician's name must be between 10 and 45 characters long!");
+        }
+    }
+    else {
+        alert("Specialty's name must be between 5 and 100 characters long!");
+    }
 }

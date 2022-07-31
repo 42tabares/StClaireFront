@@ -1,5 +1,5 @@
 import { buildSpecialty } from "./builders.js";
-import { createAppointment, createPatient, createSpecialty, getAllSpecialties } from "./requests/requests.js";
+import { createAppointment, createPatient, createSpecialty, getAllSpecialties, updateSpecialty } from "./requests/requests.js";
 
 export interface specialtyInterface{
     specialtyID:number | null,
@@ -37,6 +37,9 @@ patientsForm?.addEventListener('submit', (e) => handlePatientSubmit(e))
 
 const appointmentsForm: HTMLFormElement |null = document.querySelector('.appointments-form');
 appointmentsForm?.addEventListener('submit', (e) => handleAppointmentSubmit(e))
+
+const updateSpecialtyForm: HTMLFormElement |null = document.querySelector('.specialties-update-form');
+updateSpecialtyForm?.addEventListener('submit', (e) => handleSpecialtyUpdate(e))
 
 
 function handleSpecialtySubmit(e : SubmitEvent){
@@ -123,4 +126,36 @@ function handleAppointmentSubmit(e: SubmitEvent){
               window.location.reload()
           }
       })
+}
+
+function handleSpecialtyUpdate(e: SubmitEvent){
+    e.preventDefault();
+
+    const specialtyIDInput = (document.getElementById("specialtyID-input-editor") as HTMLInputElement).value
+    const inputName = (document.getElementById("specialty-name-input-editor") as HTMLInputElement).value
+    const inputPhysician = (document.getElementById("specialty-physician-input-editor") as HTMLInputElement).value
+
+    if((inputName.length >= 5 && inputName.length <= 100)){
+        if((inputPhysician.length >= 10 && inputPhysician.length <= 40)){
+            
+            const toUpdateSpecialty: specialtyInterface = {
+              specialtyID: parseInt(specialtyIDInput),
+              name: inputName,
+              physician: inputPhysician,
+              patients: []
+            }
+
+            updateSpecialty(toUpdateSpecialty).then(
+                response => {
+                  if(response.ok){
+                    window.location.reload()
+                }
+            })
+
+        } else {
+            alert("Physician's name must be between 10 and 45 characters long!")
+        }
+    } else {
+        alert("Specialty's name must be between 5 and 100 characters long!")
+    }
 }

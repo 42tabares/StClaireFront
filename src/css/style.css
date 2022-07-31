@@ -87,12 +87,20 @@ ul > li > button{
     margin-right: 1rem;
 }
 
+.edit-button{
+    border-radius: 5px;
+    background-color: #e1b12c;
+    padding: 5px 10px;
+    margin-top: 1rem;
+    border: none; 
+}
+
 .drop-menu{
     padding: 5px 10px;
     border-radius: 5px;
     border: none;
-    margin-bottom: 1rem;
     margin-left: 1rem;
+    margin-top: 1rem;
 }
 
 .text-input{
@@ -101,6 +109,7 @@ ul > li > button{
     border: 0px;
     outline: none;
     margin-right: 1rem;
+    margin-top: 1rem;
 }
 
 .single-specialty-container{
@@ -117,12 +126,20 @@ ul > li > button{
     margin:1rem 0rem;
 }
 
-.appointments-editor{
+.editor{
     background-color: #226280;
     padding: 10px;
     border-radius: 15px;
     margin-top: 30px;
     flex-direction: column;
+    display: flex;
+}
+
+#appointments-editor{
+    display: none;
+}
+
+#specialty-editor{
     display: none;
 }
 

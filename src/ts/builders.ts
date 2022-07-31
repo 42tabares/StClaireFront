@@ -18,7 +18,7 @@ export function buildSpecialty(specialty : specialtyInterface){
 
     const specialtyPhysician:HTMLParagraphElement = document.createElement('p');
     specialtyPhysician.className = "title-element"
-    specialtyPhysician.innerText = `Physician in Charge: ${specialty.physician}`
+    specialtyPhysician.innerText = `Physician: ${specialty.physician}`
 
     //Delete Button
     const deleteButton:HTMLButtonElement = document.createElement("button");
@@ -31,13 +31,20 @@ export function buildSpecialty(specialty : specialtyInterface){
     patientsTitle.className = "subtitle-element"
     patientsTitle.innerText = `${specialty.name} Patients:`
 
+    //Update button
+    const updateButton:HTMLButtonElement = document.createElement("button");
+    updateButton.className = "edit-button"
+    updateButton.type="submit"
+    updateButton.textContent = "Edit Specialty"
+    updateButton.addEventListener("click", () => updateSpecialtyInfoDisplay(specialty))
+
     //Patients of Specialty Div
     const patientsDiv:HTMLDivElement = document.createElement('div')
     patientsDiv.id = `specialty-patients-${specialty.specialtyID}`
     patientsDiv.className = "specialty-patients-container"
 
     //Specialty Main Div Organizing
-    specialtyMainDiv.append(specialtyTitle,specialtyPhysician,patientsTitle,patientsDiv)
+    specialtyMainDiv.append(specialtyTitle,specialtyPhysician,updateButton,patientsTitle,patientsDiv)
 
     //Adding option to create Patient form
     const newOption:HTMLOptionElement = document.createElement('option')
@@ -76,7 +83,7 @@ function buildPatient(patient : patientInterface){
     patientNofAppointments.className = "subtitle-element"
     patientNofAppointments.innerText = `Number of Appointments: ${patient.numberOfAppointments}`
 
-    //Delete button
+    //Appointments button
     const appointmentsButton:HTMLButtonElement = document.createElement("button");
     appointmentsButton.className = "action-button"
     appointmentsButton.type="submit"
@@ -96,14 +103,14 @@ function buildPatient(patient : patientInterface){
 
 function appointmentsInfoDisplay(patient:patientInterface){
 
-    const editor = document.querySelector(".appointments-editor") as HTMLElement
+    const editor = document.getElementById("appointments-editor") as HTMLElement
     const specialtyTitle = document.getElementById(`specialty-${patient.fkSpecialtyID}`) as HTMLElement
     const specialtyName = specialtyTitle.textContent
     const patientIDInput = document.getElementById("appointment-patientid-input") as HTMLInputElement
     const patientInfo = document.getElementById("appointments-patientinfo") as HTMLElement
     const appointmentsList = document.getElementById("appointments-list") as HTMLElement
 
-    patientInfo.innerText = `${specialtyName} ➡️ ${patient.name} `
+    patientInfo.innerText = `${specialtyName} appointments of ${patient.name} `
     patientIDInput.value = `${patient.patientID}`
     appointmentsList.innerHTML = ""
     editor.style.display = "flex"
@@ -128,4 +135,20 @@ function appointmentsInfoDisplay(patient:patientInterface){
         appointElement.append(deleteButton)
         appointmentsList.append(appointElement)
     });
+}
+
+function updateSpecialtyInfoDisplay(specialty:specialtyInterface){
+
+    const editor = document.getElementById("specialty-editor") as HTMLElement
+    const editorSpecialtyInfo = document.getElementById("editor-specialty-info") as HTMLElement
+    const specialtyIDInput = document.getElementById("specialtyID-input-editor") as HTMLInputElement
+    const specialtyNameInput = document.getElementById("specialty-name-input-editor") as HTMLInputElement
+    const specialtyPhysicianInput = document.getElementById("specialty-physician-input-editor") as HTMLInputElement
+
+    editorSpecialtyInfo.textContent = `Editing ${specialty.name} specialty`
+    specialtyIDInput.value = `${specialty.specialtyID}`
+    specialtyNameInput.value = `${specialty.name}`
+    specialtyPhysicianInput.value = `${specialty.physician}`
+    editor.style.display = "flex"
+
 }

@@ -12,7 +12,7 @@ export function buildSpecialty(specialty) {
     specialtyTitle.innerText = `${specialty.name}`;
     const specialtyPhysician = document.createElement('p');
     specialtyPhysician.className = "title-element";
-    specialtyPhysician.innerText = `Physician in Charge: ${specialty.physician}`;
+    specialtyPhysician.innerText = `Physician: ${specialty.physician}`;
     //Delete Button
     const deleteButton = document.createElement("button");
     deleteButton.className = "delete-button";
@@ -22,12 +22,18 @@ export function buildSpecialty(specialty) {
     const patientsTitle = document.createElement('h4');
     patientsTitle.className = "subtitle-element";
     patientsTitle.innerText = `${specialty.name} Patients:`;
+    //Update button
+    const updateButton = document.createElement("button");
+    updateButton.className = "edit-button";
+    updateButton.type = "submit";
+    updateButton.textContent = "Edit Specialty";
+    updateButton.addEventListener("click", () => updateSpecialtyInfoDisplay(specialty));
     //Patients of Specialty Div
     const patientsDiv = document.createElement('div');
     patientsDiv.id = `specialty-patients-${specialty.specialtyID}`;
     patientsDiv.className = "specialty-patients-container";
     //Specialty Main Div Organizing
-    specialtyMainDiv.append(specialtyTitle, specialtyPhysician, patientsTitle, patientsDiv);
+    specialtyMainDiv.append(specialtyTitle, specialtyPhysician, updateButton, patientsTitle, patientsDiv);
     //Adding option to create Patient form
     const newOption = document.createElement('option');
     newOption.value = `${specialty.specialtyID}`;
@@ -56,7 +62,7 @@ function buildPatient(patient) {
     const patientNofAppointments = document.createElement('p');
     patientNofAppointments.className = "subtitle-element";
     patientNofAppointments.innerText = `Number of Appointments: ${patient.numberOfAppointments}`;
-    //Delete button
+    //Appointments button
     const appointmentsButton = document.createElement("button");
     appointmentsButton.className = "action-button";
     appointmentsButton.type = "submit";
@@ -72,13 +78,13 @@ function buildPatient(patient) {
     patientsDiv === null || patientsDiv === void 0 ? void 0 : patientsDiv.append(patientMainDiv);
 }
 function appointmentsInfoDisplay(patient) {
-    const editor = document.querySelector(".appointments-editor");
+    const editor = document.getElementById("appointments-editor");
     const specialtyTitle = document.getElementById(`specialty-${patient.fkSpecialtyID}`);
     const specialtyName = specialtyTitle.textContent;
     const patientIDInput = document.getElementById("appointment-patientid-input");
     const patientInfo = document.getElementById("appointments-patientinfo");
     const appointmentsList = document.getElementById("appointments-list");
-    patientInfo.innerText = `${specialtyName} ➡️ ${patient.name} `;
+    patientInfo.innerText = `${specialtyName} appointments of ${patient.name} `;
     patientIDInput.value = `${patient.patientID}`;
     appointmentsList.innerHTML = "";
     editor.style.display = "flex";
@@ -99,4 +105,16 @@ function appointmentsInfoDisplay(patient) {
         appointElement.append(deleteButton);
         appointmentsList.append(appointElement);
     });
+}
+function updateSpecialtyInfoDisplay(specialty) {
+    const editor = document.getElementById("specialty-editor");
+    const editorSpecialtyInfo = document.getElementById("editor-specialty-info");
+    const specialtyIDInput = document.getElementById("specialtyID-input-editor");
+    const specialtyNameInput = document.getElementById("specialty-name-input-editor");
+    const specialtyPhysicianInput = document.getElementById("specialty-physician-input-editor");
+    editorSpecialtyInfo.textContent = `Editing ${specialty.name} specialty`;
+    specialtyIDInput.value = `${specialty.specialtyID}`;
+    specialtyNameInput.value = `${specialty.name}`;
+    specialtyPhysicianInput.value = `${specialty.physician}`;
+    editor.style.display = "flex";
 }
