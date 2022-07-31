@@ -1,5 +1,5 @@
 import { patientInterface, specialtyInterface } from "./index.js";
-import { deletePatient, deleteSpecialty } from "./requests/requests.js";
+import { deleteAppointment, deletePatient, deleteSpecialty } from "./requests/requests.js";
 
 export function buildSpecialty(specialty : specialtyInterface){
     
@@ -56,12 +56,7 @@ export function buildSpecialty(specialty : specialtyInterface){
 
 function buildPatient(patient : patientInterface){
 
-    console.log("builtpatient")
-    console.log(patient.fkSpecialtyID)
-
     const patientsDiv = document.getElementById(`specialty-patients-${patient.fkSpecialtyID}`)
-
-    console.log(patientsDiv)
 
     //Patient Info
     const patientMainDiv:HTMLDivElement = document.createElement('div');
@@ -81,14 +76,51 @@ function buildPatient(patient : patientInterface){
     patientNofAppointments.innerText = `Number of Appointments: ${patient.numberOfAppointments}`
 
     //Delete button
+    const appointmentsButton:HTMLButtonElement = document.createElement("button");
+    appointmentsButton.className = "action-button"
+    appointmentsButton.type="submit"
+    appointmentsButton.textContent = "Appointments"
+    appointmentsButton.addEventListener("click", () => appointmentsInfoDisplay(patient))
+
+    //Delete button
     const deleteButton:HTMLButtonElement = document.createElement("button");
     deleteButton.className = "delete-button"
     deleteButton.type="submit"
     deleteButton.textContent = "Delete Patient"
     deleteButton.addEventListener("click", () => deletePatient(patient.patientID))
 
-    //Display User's Appointment Button... TODO!
-
-    patientMainDiv.append(patientName,patientAge,patientNofAppointments,deleteButton)
+    patientMainDiv.append(patientName,patientAge,patientNofAppointments,appointmentsButton,deleteButton)
     patientsDiv?.append(patientMainDiv)
+}
+
+function appointmentsInfoDisplay(patient:patientInterface){
+
+    const editor = document.querySelector(".appointments-editor") as HTMLElement
+    const patientInfo = document.getElementById("appointments-patientinfo") as HTMLElement
+    const appointmentsList = document.getElementById("appointments-list") as HTMLElement
+
+    patientInfo.innerText = `${patient.name}`
+    appointmentsList.innerHTML = ""
+    editor.style.display = "flex"
+
+    if (patient.numberOfAppointments == 0){
+        const noAppointments:HTMLLIElement = document.createElement("li");
+        noAppointments.textContent = "No appointments yet";
+        appointmentsList.append(noAppointments)
+        return
+    }
+
+    patient.appointments.forEach(appointment =>{
+        const appointElement:HTMLLIElement = document.createElement("li") 
+        appointElement.textContent = `${appointment.date}`
+
+        const deleteButton:HTMLButtonElement = document.createElement("button");
+        deleteButton.className = "delete-button"
+        deleteButton.type="submit"
+        deleteButton.textContent = "x"
+        deleteButton.addEventListener("click", () => deleteAppointment(appointment.appointmentID))
+
+        appointElement.append(deleteButton)
+        appointmentsList.append(appointElement)
+    });
 }

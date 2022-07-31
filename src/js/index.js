@@ -66,3 +66,5 @@ function handlePatientSubmit(e) {
         alert("Patient's name must be between 10 and 45 characters long!");
     }
 }
+function handleAppointmentSubmit(e) {
+}

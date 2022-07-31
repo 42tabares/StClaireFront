@@ -5,6 +5,15 @@ body{
     color: white;
 }
 
+ul > li {
+    margin-left: 1rem;
+    margin-bottom: 5px;
+}
+
+ul > li > button{
+    margin-left: 1rem;
+}
+
 #background{
     position: absolute;
     top: 0px;
@@ -49,6 +58,13 @@ body{
     margin-bottom: 0px;
 }
 
+#manager-text{
+    display: inline-block;
+    margin-right: 1rem;
+    margin-top: 2px;
+    margin-bottom: 10px;
+}
+
 .add-button{
     border-radius: 5px;
     background-color: lightgreen;
@@ -61,6 +77,14 @@ body{
     background-color: lightcoral;
     padding: 5px 10px;
     border: none; 
+}
+
+.action-button{
+    border-radius: 5px;
+    background-color: #226280;
+    padding: 5px 10px;
+    border: none; 
+    margin-right: 1rem;
 }
 
 .drop-menu{
@@ -91,4 +115,36 @@ body{
     border-radius: 15px;
     padding: 10px;
     margin:1rem 0rem;
+}
+
+.appointments-editor{
+    background-color: #226280;
+    padding: 10px;
+    border-radius: 15px;
+    margin-top: 30px;
+    flex-direction: column;
+    display: none;
+}
+
+.date-input{
+    padding: 3px;
+    border-radius: 5px;
+    border: none;
+}
+
+.appointments-container{
+    background-color: white;
+    color:black;
+    border-radius: 15px;
+    padding: 15px;
+    margin-bottom: 1rem;
+}
+
+.appointments-form-info{
+    padding: 5px;
+    display: flex;
+}
+
+#appointments-list{
+    margin:5px;
 }

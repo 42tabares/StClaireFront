@@ -66,8 +66,8 @@ export async function deletePatient(patientID:number | null) {
     } 
 }
 
-export async function deleteAppointment(patientID:number | null) {
-    const response:Response = await fetch('http://localhost:8081/api/delete/appointment/' + patientID?.toString(),
+export async function deleteAppointment(appointmentID:number | null) {
+    const response:Response = await fetch('http://localhost:8081/api/delete/appointment/' + appointmentID?.toString(),
     {
         method: 'DELETE'
     })

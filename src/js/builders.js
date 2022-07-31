@@ -1,4 +1,4 @@
-import { deletePatient, deleteSpecialty } from "./requests/requests.js";
+import { deleteAppointment, deletePatient, deleteSpecialty } from "./requests/requests.js";
 export function buildSpecialty(specialty) {
     const specialties = document.querySelector('.specialties-container');
     const specialtiesOptions = document.getElementById('specialties-options');
@@ -41,10 +41,7 @@ export function buildSpecialty(specialty) {
     }
 }
 function buildPatient(patient) {
-    console.log("builtpatient");
-    console.log(patient.fkSpecialtyID);
     const patientsDiv = document.getElementById(`specialty-patients-${patient.fkSpecialtyID}`);
-    console.log(patientsDiv);
     //Patient Info
     const patientMainDiv = document.createElement('div');
     patientMainDiv.className = 'single-patient-container';
@@ -59,12 +56,42 @@ function buildPatient(patient) {
     patientNofAppointments.className = "subtitle-element";
     patientNofAppointments.innerText = `Number of Appointments: ${patient.numberOfAppointments}`;
     //Delete button
+    const appointmentsButton = document.createElement("button");
+    appointmentsButton.className = "action-button";
+    appointmentsButton.type = "submit";
+    appointmentsButton.textContent = "Appointments";
+    appointmentsButton.addEventListener("click", () => appointmentsInfoDisplay(patient));
+    //Delete button
     const deleteButton = document.createElement("button");
     deleteButton.className = "delete-button";
     deleteButton.type = "submit";
     deleteButton.textContent = "Delete Patient";
     deleteButton.addEventListener("click", () => deletePatient(patient.patientID));
-    //Display User's Appointment Button... TODO!
-    patientMainDiv.append(patientName, patientAge, patientNofAppointments, deleteButton);
+    patientMainDiv.append(patientName, patientAge, patientNofAppointments, appointmentsButton, deleteButton);
     patientsDiv === null || patientsDiv === void 0 ? void 0 : patientsDiv.append(patientMainDiv);
+}
+function appointmentsInfoDisplay(patient) {
+    const editor = document.querySelector(".appointments-editor");
+    const patientInfo = document.getElementById("appointments-patientinfo");
+    const appointmentsList = document.getElementById("appointments-list");
+    patientInfo.innerText = `${patient.name}`;
+    appointmentsList.innerHTML = "";
+    editor.style.display = "flex";
+    if (patient.numberOfAppointments == 0) {
+        const noAppointments = document.createElement("li");
+        noAppointments.textContent = "No appointments yet";
+        appointmentsList.append(noAppointments);
+        return;
+    }
+    patient.appointments.forEach(appointment => {
+        const appointElement = document.createElement("li");
+        appointElement.textContent = `${appointment.date}`;
+        const deleteButton = document.createElement("button");
+        deleteButton.className = "delete-button";
+        deleteButton.type = "submit";
+        deleteButton.textContent = "x";
+        deleteButton.addEventListener("click", () => deleteAppointment(appointment.appointmentID));
+        appointElement.append(deleteButton);
+        appointmentsList.append(appointElement);
+    });
 }

@@ -19,6 +19,7 @@ export interface patientInterface{
 
 export interface appointmentInterface{
     appointmentID: number | null,
+    fkPatientID: number,
     date : string,
 }
 
@@ -102,4 +103,6 @@ function handlePatientSubmit(e : SubmitEvent){
     }
 }
 
+function handleAppointmentSubmit(e: SubmitEvent){
 
+}

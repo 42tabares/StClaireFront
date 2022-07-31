@@ -68,9 +68,9 @@ export function deletePatient(patientID) {
         }
     });
 }
-export function deleteAppointment(patientID) {
+export function deleteAppointment(appointmentID) {
     return __awaiter(this, void 0, void 0, function* () {
-        const response = yield fetch('http://localhost:8081/api/delete/appointment/' + (patientID === null || patientID === void 0 ? void 0 : patientID.toString()), {
+        const response = yield fetch('http://localhost:8081/api/delete/appointment/' + (appointmentID === null || appointmentID === void 0 ? void 0 : appointmentID.toString()), {
             method: 'DELETE'
         });
         if (response.ok) {
