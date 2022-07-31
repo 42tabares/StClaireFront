@@ -9,10 +9,11 @@ export function buildSpecialty(specialty : specialtyInterface){
     //Specialty Info
     const specialtyMainDiv:HTMLDivElement = document.createElement('div');
     specialtyMainDiv.className = 'single-specialty-container'
-    specialtyMainDiv.id = `specialty-${specialty.specialtyID}`
+    specialtyMainDiv.id = `specialty-div-${specialty.specialtyID}`
     
     const specialtyTitle:HTMLHeadElement = document.createElement('h2');
     specialtyTitle.className = "title-element"
+    specialtyTitle.id = `specialty-${specialty.specialtyID}`
     specialtyTitle.innerText = `${specialty.name}`
 
     const specialtyPhysician:HTMLParagraphElement = document.createElement('p');
@@ -96,10 +97,12 @@ function buildPatient(patient : patientInterface){
 function appointmentsInfoDisplay(patient:patientInterface){
 
     const editor = document.querySelector(".appointments-editor") as HTMLElement
+    const specialtyTitle = document.getElementById(`specialty-${patient.fkSpecialtyID}`) as HTMLElement
+    const specialtyName = specialtyTitle.textContent
     const patientInfo = document.getElementById("appointments-patientinfo") as HTMLElement
     const appointmentsList = document.getElementById("appointments-list") as HTMLElement
 
-    patientInfo.innerText = `${patient.name}`
+    patientInfo.innerText = `${specialtyName} ➡️ ${patient.name} `
     appointmentsList.innerHTML = ""
     editor.style.display = "flex"
 

@@ -5,9 +5,10 @@ export function buildSpecialty(specialty) {
     //Specialty Info
     const specialtyMainDiv = document.createElement('div');
     specialtyMainDiv.className = 'single-specialty-container';
-    specialtyMainDiv.id = `specialty-${specialty.specialtyID}`;
+    specialtyMainDiv.id = `specialty-div-${specialty.specialtyID}`;
     const specialtyTitle = document.createElement('h2');
     specialtyTitle.className = "title-element";
+    specialtyTitle.id = `specialty-${specialty.specialtyID}`;
     specialtyTitle.innerText = `${specialty.name}`;
     const specialtyPhysician = document.createElement('p');
     specialtyPhysician.className = "title-element";
@@ -72,9 +73,11 @@ function buildPatient(patient) {
 }
 function appointmentsInfoDisplay(patient) {
     const editor = document.querySelector(".appointments-editor");
+    const specialtyTitle = document.getElementById(`specialty-${patient.fkSpecialtyID}`);
+    const specialtyName = specialtyTitle.textContent;
     const patientInfo = document.getElementById("appointments-patientinfo");
     const appointmentsList = document.getElementById("appointments-list");
-    patientInfo.innerText = `${patient.name}`;
+    patientInfo.innerText = `${specialtyName} ➡️ ${patient.name} `;
     appointmentsList.innerHTML = "";
     editor.style.display = "flex";
     if (patient.numberOfAppointments == 0) {
