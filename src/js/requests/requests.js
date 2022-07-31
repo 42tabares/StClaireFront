@@ -26,6 +26,18 @@ export function createSpecialty(specialty) {
         return response;
     });
 }
+export function createPatient(patient) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const response = yield fetch('http://localhost:8081/api/create/patient', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(patient)
+        });
+        return response;
+    });
+}
 /*
 export async function getSpecialtyPatients(specialtyID:number) {
     const response:Response = await fetch('http://localhost:8081/api/get/specialties' + specialtyID.toString())

@@ -1,5 +1,5 @@
 import { buildSpecialty } from "./builders.js";
-import { createSpecialty, getAllSpecialties } from "./requests/requests.js";
+import { createPatient, createSpecialty, getAllSpecialties } from "./requests/requests.js";
 
 export interface specialtyInterface{
     specialtyID:number | null,
@@ -14,6 +14,7 @@ export interface patientInterface{
     numberOfAppointments: number,
     name:string,
     age:number,
+    appointments:Array<appointmentInterface>
 }
 
 export interface appointmentInterface{
@@ -32,7 +33,7 @@ const specialtiesForm: HTMLFormElement |null = document.querySelector('.specialt
 specialtiesForm?.addEventListener('submit', (e) => handleSpecialtySubmit(e))
 
 const patientsForm: HTMLFormElement |null = document.querySelector('.patients-form');
-
+patientsForm?.addEventListener('submit', (e) => handlePatientSubmit(e))
 
 
 function handleSpecialtySubmit(e : SubmitEvent){
@@ -66,5 +67,39 @@ function handleSpecialtySubmit(e : SubmitEvent){
     }
 }
 
+function handlePatientSubmit(e : SubmitEvent){
+    e.preventDefault();
+
+    const inputName = (document.getElementById("patient-name-input") as HTMLInputElement).value
+    const inputAge = (document.getElementById("patient-age-input") as HTMLInputElement).value
+    const select = document.getElementById('specialties-options') as HTMLSelectElement
+    const inputSpecialtyID = select.options[select.selectedIndex].value;
+
+    if((inputName.length >= 5 && inputName.length <= 40)){
+        if((parseInt(inputAge) >= 0)){
+            
+            const newPatient: patientInterface = {
+              patientID: null,
+              fkSpecialtyID: parseInt(inputSpecialtyID),
+              name: inputName,
+              age: parseInt(inputAge),
+              numberOfAppointments: 0,
+              appointments: []
+            }
+
+            createPatient(newPatient).then(
+                response => {
+                  if(response.ok){
+                    window.location.reload()
+                }
+            })
+
+        } else {
+            alert("Invalid age value, must be 0 as minimal")
+        }
+    } else {
+        alert("Patient's name must be between 10 and 45 characters long!")
+    }
+}
 
 

@@ -36,7 +36,7 @@ export function buildSpecialty(specialty : specialtyInterface){
     patientsDiv.className = "specialty-patients-container"
 
     //Specialty Main Div Organizing
-    specialtyMainDiv.append(specialtyTitle,specialtyPhysician,deleteButton,patientsTitle,patientsDiv)
+    specialtyMainDiv.append(specialtyTitle,specialtyPhysician,patientsTitle,patientsDiv)
 
     //Adding option to create Patient form
     const newOption:HTMLOptionElement = document.createElement('option')
@@ -46,8 +46,11 @@ export function buildSpecialty(specialty : specialtyInterface){
     specialtiesOptions.append(newOption)
     specialties.append(specialtyMainDiv)
 
-    //Patients of Specialty Appending after Creation
-    specialty.patients.forEach(patient => buildPatient(patient))
+    if (specialty.patients.length === 0){
+        patientsDiv.append(deleteButton)
+    } else {
+        specialty.patients.forEach(patient => buildPatient(patient))
+    }
 }
 
 

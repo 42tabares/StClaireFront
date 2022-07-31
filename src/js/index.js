@@ -1,5 +1,5 @@
 import { buildSpecialty } from "./builders.js";
-import { createSpecialty, getAllSpecialties } from "./requests/requests.js";
+import { createPatient, createSpecialty, getAllSpecialties } from "./requests/requests.js";
 getAllSpecialties().then(specialties => {
     specialties.forEach(specialty => {
         console.log(specialty);
@@ -9,6 +9,7 @@ getAllSpecialties().then(specialties => {
 const specialtiesForm = document.querySelector('.specialties-form');
 specialtiesForm === null || specialtiesForm === void 0 ? void 0 : specialtiesForm.addEventListener('submit', (e) => handleSpecialtySubmit(e));
 const patientsForm = document.querySelector('.patients-form');
+patientsForm === null || patientsForm === void 0 ? void 0 : patientsForm.addEventListener('submit', (e) => handlePatientSubmit(e));
 function handleSpecialtySubmit(e) {
     e.preventDefault();
     const inputName = document.getElementById("specialty-name-input").value;
@@ -33,5 +34,35 @@ function handleSpecialtySubmit(e) {
     }
     else {
         alert("Specialty's name must be between 5 and 100 characters long!");
+    }
+}
+function handlePatientSubmit(e) {
+    e.preventDefault();
+    const inputName = document.getElementById("patient-name-input").value;
+    const inputAge = document.getElementById("patient-age-input").value;
+    const select = document.getElementById('specialties-options');
+    const inputSpecialtyID = select.options[select.selectedIndex].value;
+    if ((inputName.length >= 5 && inputName.length <= 40)) {
+        if ((parseInt(inputAge) >= 0)) {
+            const newPatient = {
+                patientID: null,
+                fkSpecialtyID: parseInt(inputSpecialtyID),
+                name: inputName,
+                age: parseInt(inputAge),
+                numberOfAppointments: 0,
+                appointments: []
+            };
+            createPatient(newPatient).then(response => {
+                if (response.ok) {
+                    window.location.reload();
+                }
+            });
+        }
+        else {
+            alert("Invalid age value, must be 0 as minimal");
+        }
+    }
+    else {
+        alert("Patient's name must be between 10 and 45 characters long!");
     }
 }

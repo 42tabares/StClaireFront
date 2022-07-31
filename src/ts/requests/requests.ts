@@ -1,4 +1,4 @@
-import { specialtyInterface } from "../index.js"
+import { patientInterface, specialtyInterface } from "../index.js"
 
 export async function getAllSpecialties() {
     const response:Response = await fetch('http://localhost:8081/api/get/specialties')
@@ -15,6 +15,19 @@ export async function createSpecialty(specialty:specialtyInterface) {
       'Content-Type': 'application/json' 
     },
     body: JSON.stringify(specialty)
+  })
+
+  return response;
+}
+
+export async function createPatient(patient:patientInterface) {
+    const response:Response = await fetch('http://localhost:8081/api/create/patient', 
+  {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json' 
+    },
+    body: JSON.stringify(patient)
   })
 
   return response;

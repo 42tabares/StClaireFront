@@ -26,15 +26,19 @@ export function buildSpecialty(specialty) {
     patientsDiv.id = `specialty-patients-${specialty.specialtyID}`;
     patientsDiv.className = "specialty-patients-container";
     //Specialty Main Div Organizing
-    specialtyMainDiv.append(specialtyTitle, specialtyPhysician, deleteButton, patientsTitle, patientsDiv);
+    specialtyMainDiv.append(specialtyTitle, specialtyPhysician, patientsTitle, patientsDiv);
     //Adding option to create Patient form
     const newOption = document.createElement('option');
     newOption.value = `${specialty.specialtyID}`;
     newOption.textContent = `${specialty.name}`;
     specialtiesOptions.append(newOption);
     specialties.append(specialtyMainDiv);
-    //Patients of Specialty Appending after Creation
-    specialty.patients.forEach(patient => buildPatient(patient));
+    if (specialty.patients.length === 0) {
+        patientsDiv.append(deleteButton);
+    }
+    else {
+        specialty.patients.forEach(patient => buildPatient(patient));
+    }
 }
 function buildPatient(patient) {
     console.log("builtpatient");
