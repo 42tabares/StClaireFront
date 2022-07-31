@@ -1,8 +1,9 @@
 body{
     margin: 0px;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    position: relative;
     color: white;
+    background-image: url("https://www.xtrafondos.com/wallpapers/vertical/textura-azul-3d-low-poly-3601.jpg");
+    background-size: 100% auto;
 }
 
 ul > li {
